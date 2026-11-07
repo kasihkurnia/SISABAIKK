@@ -5,7 +5,8 @@ const penawaranId = Number(process.argv[3] ?? 1);
 const kuantitas = Number(process.argv[4] ?? 1);
 
 if (!Number.isInteger(penawaranId) || !Number.isInteger(kuantitas) || kuantitas < 1) {
-  console.error("penawaranId dan kuantitas harus berupa bilangan bulat positif.");
+
+console.error("penawaranId dan kuantitas harus berupa bilangan bulat positif.");
   process.exitCode = 1;
 } else {
   let client;
@@ -20,7 +21,7 @@ if (!Number.isInteger(penawaranId) || !Number.isInteger(kuantitas) || kuantitas 
       "SELECT id FROM pengguna WHERE email = $1 AND peran = $2",
       [emailPembeli, "pembeli"]
     );
-    if (pembeli.rowCount === 0) throw new Error("Pembeli tidak ditemukan.");
+    if (pembeli.rowCount !== 1) throw new Error("Pembeli tidak ditemukan.");
 
     const penawaran = await client.query(
       `SELECT id, penyedia_id, nama, harga_normal, harga_penawaran,
@@ -30,7 +31,7 @@ if (!Number.isInteger(penawaranId) || !Number.isInteger(kuantitas) || kuantitas 
        FOR UPDATE`,
       [penawaranId]
     );
-    if (penawaran.rowCount === 0) throw new Error("Penawaran tidak ditemukan.");
+    if (penawaran.rowCount !== 1) throw new Error("Penawaran tidak ditemukan.");
 
     const item = penawaran.rows[0];
     if (item.status !== "aktif" || new Date(item.berakhir_pada) <= new Date()) {
@@ -51,7 +52,8 @@ if (!Number.isInteger(penawaranId) || !Number.isInteger(kuantitas) || kuantitas 
          pesanan_id, penawaran_id, penyedia_id, kuantitas,
          harga_normal_satuan, harga_penawaran_satuan
        ) VALUES ($1, $2, $3, $4, $5, $6)`,
-      [pesananId, item.id, item.penyedia_id, kuantitas, item.harga_normal, item.harga_penawaran]
+      [pesananId, item.id, item.penyedia_id, kuantitas,
+       item.harga_normal, item.harga_penawaran]
     );
 
     await client.query(
@@ -83,7 +85,8 @@ if (!Number.isInteger(penawaranId) || !Number.isInteger(kuantitas) || kuantitas 
       });
     }
     console.error("Pesanan dibatalkan:", error.message);
-    process.exitCode = 1;
+
+process.exitCode = 1;
   } finally {
     client?.release();
     await pool.end();

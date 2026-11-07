@@ -5,13 +5,12 @@ import { HttpError } from "../lib/api.js";
 export async function wajibLogin(req, res, next) {
   res.set("WWW-Authenticate", "Bearer");
   const header = req.get("authorization") ?? "";
-  if (!header) {
+  if (!header)
     throw new HttpError(
       401,
       "AUTH_REQUIRED",
       "Silakan login terlebih dahulu.",
     );
-  }
   const cocok =
     header.length <= 2048 &&
     /^Bearer ([A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+)$/.exec(
