@@ -106,7 +106,8 @@ CREATE TABLE pengambilan (
 );
 
 CREATE INDEX idx_penawaran_penyedia ON penawaran(penyedia_id);
-CREATE INDEX idx_penawaran_status_berakhir ON penawaran(status, berakhir_pada);
+CREATE INDEX idx_penawaran_status_berakhir
+ ON penawaran(status, berakhir_pada);
 CREATE INDEX idx_pesanan_pembeli ON pesanan(pembeli_id);
 CREATE INDEX idx_pesanan_penyedia ON pesanan(penyedia_id);
 CREATE INDEX idx_detail_penawaran ON detail_pesanan(penawaran_id);

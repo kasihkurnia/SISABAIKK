@@ -17,7 +17,6 @@ BEGIN
   FROM penawaran
   WHERE id = 1
   FOR UPDATE;
-
   v_penyedia_id := v_penawaran.penyedia_id;
 
   IF v_penawaran.status <> 'aktif'
@@ -63,7 +62,7 @@ $$;
 COMMIT;
 
 SELECT id, pembeli_id, penyedia_id, total_transaksi,
-       nilai_stok_terselamatkan, status
+  nilai_stok_terselamatkan, status
 FROM pesanan
 ORDER BY id DESC
 LIMIT 1;

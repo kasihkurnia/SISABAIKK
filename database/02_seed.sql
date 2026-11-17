@@ -16,18 +16,12 @@ INSERT INTO penawaran (
   penyedia_id, nama, kategori, harga_normal, harga_penawaran,
   stok, satuan, status, berakhir_pada
 ) VALUES
-  (
-    2, 'Paket Roti Sore', 'roti', 30000, 15000,
-    6, 'paket', 'aktif', CURRENT_TIMESTAMP + INTERVAL '1 day'
-  ),
-  (
-    1, 'Nasi Padang Hemat', 'makanan-siap-saji', 25000, 12000,
-    4, 'porsi', 'aktif', CURRENT_TIMESTAMP + INTERVAL '8 hours'
-  ),
-  (
-    1, 'Sayur Layak Olah', 'bahan-segar', 18000, 0,
-    5, 'paket', 'aktif', CURRENT_TIMESTAMP + INTERVAL '12 hours'
-  );
+  (2, 'Paket Roti Sore', 'roti', 30000, 15000,
+   6, 'paket', 'aktif', CURRENT_TIMESTAMP + INTERVAL '1 day'),
+  (1, 'Nasi Padang Hemat', 'makanan-siap-saji', 25000, 12000,
+   4, 'porsi', 'aktif', CURRENT_TIMESTAMP + INTERVAL '8 hours'),
+  (1, 'Sayur Layak Olah', 'bahan-segar', 18000, 0,
+   5, 'paket', 'aktif', CURRENT_TIMESTAMP + INTERVAL '12 hours');
 
 INSERT INTO pesanan (
   pembeli_id, penyedia_id, status, total_transaksi,
@@ -44,6 +38,6 @@ INSERT INTO detail_pesanan (
 INSERT INTO pengambilan (
   pesanan_id, kode, jadwal_pada, status
 ) VALUES
-  (1, 'AMBIL-0001', CURRENT_TIMESTAMP + INTERVAL '2 hours', 'terjadwal');
+  (1, 'AMBIL-0001', CURRENT_TIMESTAMP + INTERVAL '2 hours', 'berjadwal');
 
 COMMIT;

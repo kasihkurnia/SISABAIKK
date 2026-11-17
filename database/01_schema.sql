@@ -35,7 +35,8 @@ CREATE TABLE penawaran (
   kategori VARCHAR(40) NOT NULL,
   harga_normal NUMERIC(12,0) NOT NULL CHECK (harga_normal > 0),
   harga_penawaran NUMERIC(12,0) NOT NULL
-    CHECK (harga_penawaran >= 0 AND harga_penawaran <= harga_normal),
+
+CHECK (harga_penawaran >= 0 AND harga_penawaran <= harga_normal),
   stok INTEGER NOT NULL CHECK (stok >= 0),
   satuan VARCHAR(20) NOT NULL,
   status VARCHAR(20) NOT NULL DEFAULT 'aktif'
@@ -101,8 +102,8 @@ CREATE TABLE pengambilan (
   kode VARCHAR(20) NOT NULL UNIQUE,
   jadwal_pada TIMESTAMPTZ NOT NULL,
   diambil_pada TIMESTAMPTZ,
-  status VARCHAR(20) NOT NULL DEFAULT 'terjadwal'
-    CHECK (status IN ('terjadwal', 'diambil', 'gagal')),
+  status VARCHAR(20) NOT NULL DEFAULT 'berjadwal'
+    CHECK (status IN ('berjadwal', 'diambil', 'gagal')),
   CHECK (diambil_pada IS NULL OR diambil_pada >= jadwal_pada)
 );
 
